@@ -4,7 +4,7 @@ Infrastructure-as-Code deployment of a single EC2 instance running Nginx, provis
 
 ## Architecture
 
-\`\`\`
+```
 Terraform
   │
   ├── Security Group (hello-terraform-sg)
@@ -13,37 +13,37 @@ Terraform
   └── EC2 Instance (Ubuntu 22.04, t3.micro)
         ├── user_data → installs & starts Nginx
         └── serves a static "Hello from Terraform!" page
-\`\`\`
+```
 
 ## Stack
 
-| Layer      | Technology                                                        |
-|------------|--------------------------------------------------------------------|
-| IaC        | Terraform (~> 5.0 AWS provider)                                    |
-| Compute    | AWS EC2 (t3.micro, Free Tier eligible)                              |
-| AMI        | Dynamically resolved latest Ubuntu 22.04 (Canonical, owner 099720109477) |
-| Web server | Nginx (installed via `user_data` at boot)                          |
-| Networking | Security Group (HTTP + SSH ingress, unrestricted egress)           |
+| Layer      | Technology                                                                |
+|------------|----------------------------------------------------------------------------|
+| IaC        | Terraform (`~> 5.0` AWS provider)                                          |
+| Compute    | AWS EC2 (t3.micro, Free Tier eligible)                                     |
+| AMI        | Dynamically resolved latest Ubuntu 22.04 (Canonical, owner `099720109477`) |
+| Web server | Nginx (installed via `user_data` at boot)                                  |
+| Networking | Security Group (HTTP + SSH ingress, unrestricted egress)                   |
 
 ## Run it
 
-\`\`\`bash
+```bash
 terraform init
 terraform plan
 terraform apply
-\`\`\`
+```
 
 Terraform prints the instance's `public_ip` and `web_url` on completion. Give the instance about a minute to finish running `user_data`, then:
 
-\`\`\`bash
+```bash
 curl $(terraform output -raw web_url)
-\`\`\`
+```
 
 When done:
 
-\`\`\`bash
+```bash
 terraform destroy
-\`\`\`
+```
 
 ## Key decisions
 
@@ -55,7 +55,7 @@ terraform destroy
 ## Outputs
 
 | Output        | Description                          |
-|---------------|---------------------------------------|
+|---------------|----------------------------------------|
 | `instance_id` | EC2 instance ID                       |
 | `public_ip`   | Public IP address of the instance     |
 | `web_url`     | Full URL to view Nginx running        |
