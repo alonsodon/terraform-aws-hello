@@ -1,0 +1,16 @@
+# Terraform
+.terraform/
+terraform.tfstate
+terraform.tfstate.backup
+*.tfplan
+crash.log
+
+# Variables (pueden contener secrets — nunca se suben)
+*.tfvars
+*.tfvars.json
+
+# AWS
+.aws/
+
+# macOS
+.DS_Store
